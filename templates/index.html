@@ -1,0 +1,35 @@
+{%extends 'base.html'%}
+
+{%block title%} URL Shortening Service {%endblock%}
+
+{%block linkcss%}
+<link type="text/css" rel="stylesheet" href="/media/css/default.css" media="all" charset="utf-8"/>
+{%endblock%}
+
+{%block linkjs%}
+<script type="text/javascript" src="/media/js/default.js" charset="utf-8"></script>
+{%endblock%}
+
+{%block doc_ready%}
+<script type="text/javascript">
+   $(setUp); 
+</script>
+{%endblock%}
+
+{%block main%}
+<h1>최근 등록된 URL목록</h1>
+
+<form method="POST" action="/get/short/url/">
+    <label for="txt-url"> URL주소를 짧게 줄여요. </label><input type="text" name="url" id="txt-url"/>
+    <input type="submit" value="URL 줄이기"/>
+</form>
+
+<ol>
+    {% for shortUrl in shortUrls %}
+    <li>
+        <span class="short">{{shortUrl.id}}</span>
+        <span class="long">{{shortUrl.longUrl.url}}</span>
+    </li>
+    {%endfor%}
+</ol>
+{%endblock%}
