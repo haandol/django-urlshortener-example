@@ -3,14 +3,14 @@
 from django.db import models
 from django.contrib import admin
 
-class WrongURL(object):
-    ERROR_MSG = {
-                0: "data error",
-                1: "it is not a url",
-                2: "url creation error",
-                3: "there is no such a url",
-            }
+ERROR_MSG = {
+            0: "data error",
+            1: "it is not a url",
+            2: "url creation error",
+            3: "there is no such a url",
+        }
 
+class WrongURL(Exception):
     def __init__(self, key):
         self.error_message = ERROR_MSG[key]
 

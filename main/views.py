@@ -6,12 +6,16 @@ from django.http import HttpResponse, HttpResponseRedirect
 from urlShortener.url_manager.views import get_short_id, get_long_url
 from urlShortener.url_manager.models import WrongURL, ShortURL
 
-BASEURL = 'http://www.kumi-dongkwang.com/'
+BASEURL = 'http://url.kumi-dongkwang.com/'
 
 def index(request):
     u'''메인 페이지'''
     urls = ShortURL.objects.all()
-    return render_to_response('index.html', {'shortUrls': urls})
+    context = {
+                'BASEURL': BASEURL,
+                'shortUrls': urls,
+            }
+    return render_to_response('index.html', context)
 
 def long_url(request, id):
     u'''짧은 url을 입력받아 긴 url주로소 리다이렉트 해준다.'''

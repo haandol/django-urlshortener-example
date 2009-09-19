@@ -1,12 +1,12 @@
 #coding: utf-8
 
 import re
-from models import LongURL, ShortURL
+from models import WrongURL, LongURL, ShortURL
 
 BASE62 = '01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 nBASE62 = len(BASE62)
 
-PATTERN = r'http://[^/^\s]+[.]\w{2,4}\S*/?'
+PATTERN = r'http://[^/^\s]+'
 
 def get_short_id(url):
     u'''긴 URL을 받아서 짧은 URL의 id를 반환'''
@@ -26,7 +26,7 @@ def get_short_id(url):
         try:
             return ShortURL.objects.get(longUrl=longUrl).id
         except ShortURL.DoesNotExist:
-            raise ERROR(3)
+            raise WrongURL(3)
 
 def get_long_url(id):
     u'''아이디를 입력받아 인코딩한다'''
