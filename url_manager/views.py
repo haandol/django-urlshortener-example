@@ -6,7 +6,7 @@ from models import WrongURL, LongURL, ShortURL
 BASE62 = '01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 nBASE62 = len(BASE62)
 
-PATTERN = r'http://[^/^\s]+'
+PATTERN = r'http://[^/^\s]+[.]\w{2,4}\S/?'
 
 def get_short_id(url):
     u'''긴 URL을 받아서 짧은 URL의 id를 반환'''
