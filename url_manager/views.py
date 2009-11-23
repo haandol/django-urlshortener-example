@@ -1,6 +1,7 @@
 #coding: utf-8
 
 import re
+import urllib
 from models import WrongURL, LongURL, ShortURL
 
 BASE62 = '01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -31,7 +32,7 @@ def get_short_id(url):
 def get_long_url(id):
     u'''아이디를 입력받아 인코딩한다'''
     try:
-        return ShortURL.objects.get(id=id).longUrl.url
+        return urllib.quote(ShortURL.objects.get(id=id).longUrl.url.encode('utf-8'), safe=':/=\?&')
     except: 
         return ''
 
@@ -40,8 +41,8 @@ def encode_basen(id, n=nBASE62):
     base = id
     rests = []
     while base!=0:
-        quotient = base/n
-        rests.append(BASE62[base%n])
+        quotient, rest = divmod(base, n)
+        rests.append(BASE62[rest])
         base = quotient
 
     return ''.join(rests)
