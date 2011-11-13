@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from urlShortener.url_manager.views import get_short_id, get_long_url
 from urlShortener.url_manager.models import WrongURL, ShortURL
 
-BASEURL = 'http://url.kumi-dongkwang.com/'
+BASEURL = 'http://url.dirhelp.com/'
 
 def index(request):
     u'''메인 페이지'''

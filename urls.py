@@ -1,20 +1,21 @@
 #coding: utf-8
 
-import os
-from settings import ROOT_PATH
-from django.conf.urls.defaults import *
+from django.conf.urls.defaults import patterns, include, url
+from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
 
+
 urlpatterns = patterns('',
-    #admin
-    (r'^admin/(.*)', admin.site.root),
+    #Admin
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^admin/', include(admin.site.urls)),
 
     #main
-    (r'^$', 'urlShortener.main.views.index'),
-    (r'^(?P<id>\w+)/?$', 'urlShortener.main.views.long_url'),
-    (r'^get/short/url/?$', 'urlShortener.main.views.short_url'),
+    url(r'^$', 'urlShortener.main.views.index'),
+    url(r'^(?P<id>\w+)/?$', 'urlShortener.main.views.long_url'),
+    url(r'^get/short/url/?$', 'urlShortener.main.views.short_url'),
 
     #media files
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': os.path.join(ROOT_PATH, 'media')}),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT)}),
 )

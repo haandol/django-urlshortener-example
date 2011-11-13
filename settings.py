@@ -1,4 +1,5 @@
-# Django settings for shortUrl project.
+#coding: utf-8
+
 import os
 ROOT_PATH = os.path.dirname(__file__)
 
@@ -6,17 +7,29 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('haandol', 'ldg55d@gmail.com'),
+    ('lamttic', 'lamttic@gmail.com'),
 )
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = os.path.join(ROOT_PATH, 'urlShortener.db')             # Or path to database file if using sqlite3.
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'setsquaretech@gmail.com'
+EMAIL_HOST_PASSWORD = 'aksekfls123'
+EMAIL_SUBJECT_PREFIX = '[URLShortener]'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'urlshortener',                      # Or path to database file if using sqlite3.
+        'USER': 'root',                      # Not used with sqlite3.
+        'PASSWORD': 'good4u',                  # Not used with sqlite3.
+        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
+    }
+}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -27,7 +40,7 @@ TIME_ZONE = 'Asia/Seoul'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'KR'
+LANGUAGE_CODE = 'ko-kr'
 
 SITE_ID = 1
 
@@ -80,3 +93,29 @@ INSTALLED_APPS = (
     'urlShortener.url_manager',
     'urlShortener.main',
 )
+
+#in order to ignore contribs tests. I think TEMPLATE_CONTEXT_PROCESSORS makes contribs tests fail.
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# A sample logging configuration. The only tangible logging
+# performed by this configuration is to send an email to
+# the site admins on every HTTP 500 error.
+# See http://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    }
+}
